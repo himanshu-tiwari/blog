@@ -6,7 +6,7 @@ const BlogSchema = new Schema({
         type: String,
         required: [true, 'Title is required']
     },
-    contents: {
+    content: {
         type: String
     }
 });
