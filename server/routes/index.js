@@ -8,8 +8,11 @@ router.get('/blogs', (req, res) => {
 });
 
 router.post('/blogs', (req, res) => {
+    const { title, contents } = req.body;
     res.send({
-        type: 'POST'
+        type: 'POST',
+        title,
+        contents
     });
 });
 
