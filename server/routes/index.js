@@ -3,9 +3,9 @@ const router = express.Router();
 const Blog = require('../models/blog');
 
 router.get('/blogs', (req, res, next) => {
-    res.send({
-        type: 'GET'
-    });
+    Blog.find({})
+        .then((blogs) => res.send(blogs))
+        .catch(next);
 });
 
 router.get('/blog', (req, res, next) => {
@@ -22,13 +22,17 @@ router.post('/blog', (req, res, next) => {
 });
 
 router.put('/blog/:id', (req, res, next) => {
-    res.send({
-        type: 'PUT'
-    });
+    Blog.findOneAndUpdate({ _id: req.params.id }, req.body)
+        .then(() => {
+            Blog.findOne({ _id: req.params.id })
+                .then((blog) => res.send(blog))
+                .catch(next);
+        })
+        .catch(next);
 });
 
 router.delete('/blog/:id', (req, res, next) => {
-    Blog.findByIdAndRemove({ _id: req.params.id })
+    Blog.findOneAndDelete({ _id: req.params.id })
         .then((blog) => res.send(blog))
         .catch(next);
 });

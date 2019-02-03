@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 app.use('/api', require('./routes/index'));
 
 // Error handling middleware
-app.use((err, req, res, next) => res.status(422).send({error: err.message}));
+app.use((err, req, res, next) => res.status(422).send(err));
 
 app.listen(process.env.port || 4000, () => {
     console.log("Listening to requests!");
